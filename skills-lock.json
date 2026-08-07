@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-reach": {
+      "source": "EdisonChenAI/agent-reach",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "2f7eccb7a53d9b1a7b700ff294f7f4b10f7fc6784c0910620d6a803588d97c0a"
+    }
+  }
+}
