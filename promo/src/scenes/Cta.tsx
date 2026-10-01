@@ -57,25 +57,6 @@ export const Build: React.FC<{f: number}> = ({f}) => {
   );
 };
 
-const Social: React.FC<{k: 'ig' | 'tt' | 'yt'; color: string}> = ({k, color}) => (
-  <svg width={64} height={64} viewBox="0 0 64 64">
-    {k === 'ig' && (
-      <>
-        <rect x={6} y={6} width={52} height={52} rx={16} fill="none" stroke={color} strokeWidth={6} />
-        <circle cx={32} cy={32} r={12} fill="none" stroke={color} strokeWidth={6} />
-        <circle cx={47} cy={17} r={4} fill={color} />
-      </>
-    )}
-    {k === 'tt' && <path d="M 36 6 L 36 42 A 10 10 0 1 1 26 32 M 36 6 C 38 16 46 22 54 22" fill="none" stroke={color} strokeWidth={7} strokeLinecap="round" />}
-    {k === 'yt' && (
-      <>
-        <rect x={4} y={12} width={56} height={40} rx={12} fill={color} />
-        <path d="M 27 22 L 42 32 L 27 42 Z" fill={C.cream} />
-      </>
-    )}
-  </svg>
-);
-
 export const EndCard: React.FC<{f: number}> = ({f}) => {
   // f: 0 = final hit
   const logo = sp(f, 0, 30, {damping: 10, stiffness: 200});
@@ -194,18 +175,6 @@ export const EndCard: React.FC<{f: number}> = ({f}) => {
             </svg>
           </div>
         )}
-
-        {/* socials */}
-        <div style={{position: 'absolute', top: 1310, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: soc, transform: `translateY(${(1 - soc) * 40}px)`}}>
-          <div style={{display: 'flex', gap: 44, alignItems: 'center'}}>
-            {(['ig', 'tt', 'yt'] as const).map((k) => (
-              <Social key={k} k={k} color={C.ink} />
-            ))}
-          </div>
-          <Mono size={24} color={C.ink} style={{marginTop: 18, opacity: 0.7}}>
-            {'INSTAGRAM · TIKTOK · YOUTUBE'}
-          </Mono>
-        </div>
       </AbsoluteFill>
     </Fill>
   );
