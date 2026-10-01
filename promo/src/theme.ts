@@ -1,0 +1,28 @@
+// Brand system: "СБОРНЫЕ ГРУЗЫ · ЕВРОПА → РОССИЯ"
+export const C = {
+  ink: '#0B0C12',
+  cream: '#F3EEE2',
+  orange: '#FF4D12',
+  cobalt: '#2236FF',
+  red: '#E5000F',
+  kraft: '#C99559',
+  kraftDark: '#9C6C38',
+  grey: '#8A8C96',
+};
+
+export const F = {
+  display: 'Unbounded, sans-serif',
+  body: 'Inter, sans-serif',
+  mono: '"JetBrains Mono", monospace',
+};
+
+export const FPS = 30;
+export const BEAT = 15; // frames per beat @120 BPM
+export const W = 1080;
+export const H = 1920;
+
+// Instagram Reels / TikTok / Shorts UI-free zone.
+// Top ~250px: status bar + header; bottom ~440px: caption, audio, CTA;
+// right ~150px in lower half: like/comment/share column.
+export const SAFE = {top: 260, bottom: 1480, left: 80, right: 1000};
+export const SAFE_CY = (SAFE.top + SAFE.bottom) / 2;
