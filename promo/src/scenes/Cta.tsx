@@ -1,7 +1,7 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, interpolate} from 'remotion';
 import {C, F, SAFE_CY} from '../theme';
-import {Display, Fill, Logo, Mono, easeOut, lerp, shake, sp} from '../lib';
+import {Display, Fill, Mono, lerp, shake, sp} from '../lib';
 
 // local 0–180 (global 720–900 = 24–30s)
 // 0–60  build: "СКОЛЬКО СТОИТ ВАША ДОСТАВКА?" + slot-machine digits
@@ -18,7 +18,7 @@ const Slot: React.FC<{f: number; seed: number}> = ({f, seed}) => {
   );
 };
 
-const Build: React.FC<{f: number}> = ({f}) => {
+export const Build: React.FC<{f: number}> = ({f}) => {
   const zoom = lerp(f, 0, 60, 1, 1.1, (t) => t * t);
   const rollHits = [];
   for (let k = 30; k < 60; k += Math.max(2, 6 - Math.floor((k - 30) / 6))) rollHits.push(k);
@@ -76,7 +76,7 @@ const Social: React.FC<{k: 'ig' | 'tt' | 'yt'; color: string}> = ({k, color}) =>
   </svg>
 );
 
-const EndCard: React.FC<{f: number}> = ({f}) => {
+export const EndCard: React.FC<{f: number}> = ({f}) => {
   // f: 0 = final hit
   const logo = sp(f, 0, 30, {damping: 10, stiffness: 200});
   const t1 = sp(f, 4, 30, {damping: 14, stiffness: 200});
@@ -99,17 +99,19 @@ const EndCard: React.FC<{f: number}> = ({f}) => {
       <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 14, background: C.orange}} />
       <AbsoluteFill style={{transform: `translate(${sh.x}px, ${sh.y}px)`}}>
         <div style={{position: 'absolute', top: 300, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <div style={{transform: `scale(${interpolate(logo, [0, 1], [0.3, 1])})`}}>
-            <Logo size={190} t={lerp(f, 0, 14, 0, 1, easeOut)} />
+          <div style={{transform: `scale(${interpolate(logo, [0, 1], [1.6, 1])})`, opacity: Math.min(1, logo * 2)}}>
+            <Display size={84} color={C.ink}>
+              {'СБОРНЫЕ'}
+            </Display>
           </div>
-          <div style={{marginTop: 34, transform: `translateY(${(1 - t1) * 60}px)`, opacity: t1}}>
-            <Display size={70} color={C.ink}>
-              {'СБОРНЫЕ ГРУЗЫ'}
+          <div style={{marginTop: 10, transform: `translateY(${(1 - t1) * 60}px)`, opacity: t1}}>
+            <Display size={84} color={C.orange}>
+              {'ГРУЗЫ'}
             </Display>
           </div>
           <div style={{marginTop: 18, transform: `translateY(${(1 - t2) * 60}px)`, opacity: t2, display: 'flex', alignItems: 'center', gap: 22}}>
             <Mono size={34} color={C.ink}>
-              {'ИТАЛИЯ · ЕВРОПА'}
+              {'ЕВРОПА · КИТАЙ'}
             </Mono>
             <div style={{width: 90, height: 8, background: C.orange, position: 'relative'}}>
               <div style={{position: 'absolute', right: -6, top: -12, width: 0, height: 0, borderLeft: `24px solid ${C.orange}`, borderTop: '16px solid transparent', borderBottom: '16px solid transparent'}} />
@@ -207,11 +209,5 @@ const EndCard: React.FC<{f: number}> = ({f}) => {
       </AbsoluteFill>
     </Fill>
   );
-};
-
-export const Cta: React.FC = () => {
-  const f = useCurrentFrame();
-  if (f < 60) return <Build f={f} />;
-  return <EndCard f={f - 60} />;
 };
 

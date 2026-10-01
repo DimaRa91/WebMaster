@@ -7,15 +7,18 @@ Sections (seconds):
   0-3   HOOK      — four word-slams + box landing impact
   3-9   SANCTIONS — dark half-time 808, alarm stabs
   9-12  TURN      — filter-out, riser, snare roll, gap
-  12-24 DROP      — four-on-the-floor, rolling bass, supersaw stabs, lead
-  24-30 CTA       — build, final hit at 26.0, chord tail
+  12-26 DROP A    — four-on-the-floor, rolling bass, supersaw stabs, lead
+  26-32 DROP B    — same groove, extra stabs, a hit on every solution card
+  32-38 BREAKDOWN — half-time groove, chat pops, stamp hits
+  38-43 DROP A'   — full energy under the recap checklist
+  43-50 CTA       — build, final hit at 45.0, chord tail
 """
 import numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt, fftconvolve
 
 SR = 48000
-DUR = 30.0
+DUR = 50.0
 N = int(SR * DUR)
 BEAT = 0.5
 rng = np.random.default_rng(7)
@@ -275,19 +278,24 @@ put(drums, kick(1.0), 9.0, 0.6)
 put(drums, kick(1.0), 10.0, 0.6)
 put(music, reverse_cymbal(0.5), 11.5, 0.7)  # gap 11.5-12 only reverse swell
 
-# ---------- DROP 12-24 (D minor -> Bb -> F -> C) ----------
+# ---------- DROP (D minor -> Bb -> F -> C) ----------
 prog = [
     (note(50), [note(62), note(65), note(69)]),  # Dm
     (note(46), [note(62), note(65), note(70)]),  # Bb
     (note(41), [note(60), note(65), note(69)]),  # F
     (note(48), [note(60), note(64), note(67)]),  # C
 ]
-lead = [74, 77, 81, 79, 77, 74, 72, 74]  # 8th-note hook, varied per bar
-put(drums, impact(2.0, 40), 12.0, 0.9)
-for b in range(6):
-    t0 = 12.0 + b * 2.0
+lead = [74, 77, 81, 79, 77, 74, 72, 74]  # 8th-note hook
+
+
+def crash(at, gain=0.6):
+    n = int(1.5 * SR)
+    put(drums, hp(rng.standard_normal(n), 4000) * env_exp(n, 0.4) * 0.5, at, gain)
+
+
+def drop_bar(t0, b, beats=4, energy=1.0):
     root, chord = prog[b % 4]
-    for i in range(4):
+    for i in range(beats):
         bt = t0 + i * 0.5
         put(drums, kick(1.1), bt, 1.0)
         put(drums, hat(open_=True), bt + 0.25, 0.35, 0.2)
@@ -296,46 +304,96 @@ for b in range(6):
             put(drums, snare(0.2), bt, 0.3)
         for j in range(4):
             put(drums, hat(), bt + j * 0.125, 0.2 if j % 2 else 0.3, -0.25)
-        # rolling offbeat bass 16ths
         for j in (1, 2, 3):
             put(music, sub808(root / 2 if j != 2 else root, 0.11, drive=3), bt + j * 0.125, 0.55)
-        # supersaw stab on the &
-        put(music, supersaw(chord, 0.2, cutoff=3500 + 400 * b), bt + 0.25, 0.55)
-    # lead pluck hook
-    for k, n_ in enumerate(lead):
+        put(music, supersaw(chord, 0.2, cutoff=3500 + 300 * (b % 6)), bt + 0.25, 0.55 * energy)
+        if energy > 1:  # extra stab on the beat for the high-energy sections
+            put(music, supersaw(chord, 0.12, cutoff=5000), bt, 0.3)
+    for k, n_ in enumerate(lead[: beats * 2]):
         nn = n_ + (0 if b % 2 == 0 else [0, 0, -2, 0, 2, 0, -2, -5][k])
-        put(music, pluck(note(nn + 12)), t0 + k * 0.25 + (1.0 if k >= 4 else 0) * 0, 0.25, 0.35)
-    if b in (2, 4):
-        put(drums, hp(rng.standard_normal(int(1.5 * SR)), 4000) * env_exp(int(1.5 * SR), 0.4) * 0.5, t0, 0.6)  # crash
-    if b < 5:
-        put(music, whoosh(0.5, True), t0 + 1.5, 0.35)
+        put(music, pluck(note(nn + 12)), t0 + k * 0.25, 0.25, 0.35)
 
-# ---------- CTA 24-30 ----------
+
+def half_time_bar(t0, b):
+    """Breakdown groove: kick 1 & 2.5, snare on 3, pad + sparse pluck."""
+    root, chord = prog[b % 4]
+    put(drums, kick(1.0), t0, 0.85)
+    put(drums, kick(0.8), t0 + 0.75, 0.6)
+    put(drums, snare(0.25), t0 + 1.0, 0.55)
+    put(drums, clap(), t0 + 1.0, 0.4)
+    for j in range(8):
+        put(drums, hat(), t0 + j * 0.25, 0.22, 0.3)
+    put(music, sub808(root / 2, 1.0), t0, 0.6)
+    put(music, pad(chord, 2.0, cutoff=2200), t0, 0.35)
+    for k in (0, 3, 4, 6):
+        put(music, pluck(note(lead[k] + 12)), t0 + k * 0.25, 0.2, 0.35)
+
+
+def pop(at, f0=1200):
+    t = t_arr(0.12)
+    put(music, np.sin(2 * np.pi * (f0 + 900 * np.exp(-t / 0.02)) * t) * np.exp(-t / 0.04) * 0.6, at, 0.5)
+
+
+# A: 12–26 — wall, Europe map, China map, tetris, truck
+put(drums, impact(2.0, 40), 12.0, 0.9)
+for b in range(7):
+    t0 = 12.0 + b * 2.0
+    drop_bar(t0, b)
+    put(music, whoosh(0.5, True), t0 + 1.5, 0.35)
+for at in (16.0, 18.0, 22.0, 24.0):
+    crash(at)
+
+# B: 26–32 — six solution cards, one per second
+crash(26.0, 0.7)
+for b in range(3):
+    drop_bar(26.0 + b * 2.0, b + 1, energy=1.25)
+for k in range(6):
+    put(drums, slam(1.0 + 0.05 * k), 26.0 + k, 0.35)
+put(music, whoosh(0.5, True), 31.5, 0.4)
+
+# Breakdown: 32–38 — personal manager chat + weekly departures
+put(drums, impact(1.5, 45), 32.0, 0.5)
+for b in range(3):
+    half_time_bar(32.0 + b * 2.0, b)
+for fr in (10, 34, 56, 78):  # chat bubbles (frames after 32.0s)
+    pop(32.0 + fr / 30)
+for fr in (14, 25, 36, 47):  # "ОТПРАВЛЕНО" stamps (frames after 36.0s)
+    put(drums, slam(0.9), 36.0 + fr / 30, 0.35)
+put(music, riser(1.0), 37.0, 0.35)
+
+# A': 38–43 — recap checklist, full energy
+put(drums, impact(2.0, 40), 38.0, 0.8)
+crash(38.0, 0.7)
+drop_bar(38.0, 0, energy=1.25)
+drop_bar(40.0, 1, energy=1.25)
+drop_bar(42.0, 2, beats=2, energy=1.25)
+for k in range(8):  # ticks
+    put(music, click(), 38.0 + (14 + 12 * k) / 30, 0.45)
+
+# ---------- BUILD 43–45 + CTA ----------
 for i in range(4):
-    bt = 24.0 + i * 0.5
+    bt = 43.0 + i * 0.5
     put(drums, kick(1.0), bt, 0.9)
     for j in range(2):
         put(drums, hat(), bt + 0.25 * j, 0.3)
-put(music, supersaw([note(62), note(65), note(69)], 1.0, cutoff=2500), 24.0, 0.35)
-put(music, supersaw([note(58), note(62), note(65)], 1.0, cutoff=2500), 25.0, 0.35)
-r = 25.0
+put(music, supersaw([note(62), note(65), note(69)], 1.0, cutoff=2500), 43.0, 0.35)
+put(music, supersaw([note(58), note(62), note(65)], 1.0, cutoff=2500), 44.0, 0.35)
+r = 44.0
 step = 0.125
-while r < 26.0:
-    put(drums, snare(0.12, 240), r, 0.2 + 0.4 * (r - 25.0))
+while r < 45.0:
+    put(drums, snare(0.12, 240), r, 0.2 + 0.4 * (r - 44.0))
     step = max(0.0625, step * 0.85)
     r += step
-put(music, riser(1.0), 25.0, 0.4)
-# FINAL HIT 26.0 — F major add9 big chord
-put(drums, impact(3.5, 41), 26.0, 1.0)
-put(drums, kick(1.3), 26.0, 0.8)
-put(music, sub808(note(29), 2.5), 26.0, 0.8)
-put(music, pad([note(53), note(57), note(60), note(67), note(72)], 3.9, cutoff=3200), 26.0, 0.6)
-put(music, chime([note(84), note(88), note(91)], 2.5), 26.0, 0.35)
-# button tap at 27.5
-put(music, click(), 27.5, 0.6)
-put(music, chime([note(96), note(100)], 1.2), 27.52, 0.25)
-# soft heartbeat pulses
-for at in [28.0, 29.0]:
+put(music, riser(1.0), 44.0, 0.4)
+# FINAL HIT 45.0 — F major add9
+put(drums, impact(3.5, 41), 45.0, 1.0)
+put(drums, kick(1.3), 45.0, 0.8)
+put(music, sub808(note(29), 2.5), 45.0, 0.8)
+put(music, pad([note(53), note(57), note(60), note(67), note(72)], 4.9, cutoff=3200), 45.0, 0.6)
+put(music, chime([note(84), note(88), note(91)], 2.5), 45.0, 0.35)
+put(music, click(), 46.5, 0.6)  # button tap
+put(music, chime([note(96), note(100)], 1.2), 46.52, 0.25)
+for at in [47.0, 48.0]:
     put(drums, kick(0.6, 0.3), at, 0.35)
 
 
@@ -350,7 +408,7 @@ def reverb(x, d=1.8, mix=0.18):
 
 # sidechain music to the kick during the drop (pumping)
 sc = np.ones(N)
-for b in range(int(12.0 / BEAT), int(26.0 / BEAT)):
+for b in list(range(int(12.0 / BEAT), int(32.0 / BEAT))) + list(range(int(38.0 / BEAT), int(45.0 / BEAT))):
     i = int(b * BEAT * SR)
     n = int(0.25 * SR)
     seg = 1 - 0.55 * np.exp(-np.arange(n) / SR / 0.07)
@@ -374,7 +432,7 @@ outL = np.tanh(outL)
 outR = np.tanh(outR)
 # fade tail
 fade = np.ones(N)
-fs = int(28.6 * SR)
+fs = int(48.6 * SR)
 fade[fs:] = np.linspace(1, 0, N - fs) ** 1.5
 outL *= fade * 0.95
 outR *= fade * 0.95

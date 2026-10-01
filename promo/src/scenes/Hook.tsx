@@ -7,8 +7,8 @@ import {Display, Fill, Grid, Mono, easeIn, easeOut, lerp, punch, shake, sp} from
 const WORDS = [
   {t: 'ВЕЗЁТЕ', size: 170},
   {t: 'ТОВАР', size: 210},
-  {t: 'ИЗ ИТАЛИИ', size: 116},
-  {t: 'И ЕВРОПЫ?', size: 116},
+  {t: 'ИЗ ЕВРОПЫ', size: 116},
+  {t: 'И КИТАЯ?', size: 124},
 ];
 const BG = [C.orange, C.ink, C.cobalt, C.cream];
 const FG = [C.ink, C.cream, C.cream, C.ink];
@@ -180,7 +180,7 @@ export const Hook: React.FC = () => {
         {/* caption under box */}
         {landed && f < 80 && (
           <div style={{position: 'absolute', left: 0, right: 0, top: SAFE_CY + 250, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14}}>
-            {['СБОРНЫЕ ГРУЗЫ', 'ИТАЛИЯ · ЕВРОПА → МОСКВА'].map((l, i) => {
+            {['СБОРНЫЕ ГРУЗЫ', 'ЕВРОПА · КИТАЙ → МОСКВА'].map((l, i) => {
               const s = sp(f, 62 + i * 3, 30, {damping: 14, stiffness: 220});
               return (
                 <div

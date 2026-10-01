@@ -1,14 +1,9 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, random, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, interpolate, random} from 'remotion';
 import {C, F, SAFE_CY} from '../theme';
 import {Display, Fill, Grid, Marquee, Mono, easeIn, easeInOut, easeOut, lerp, punch, shake, sp} from '../lib';
 
-// local 0–360 (global 360–720 = 12–24s). 1 bar = 60f.
-//   0–60    wall: "из Италии и Европы → в Москву"
-//   60–180  map: Rimini close-up (factories) → camera pulls out → Vilnius, Moscow, transit times
-//   180–240 consolidation tetris: "от одной коробки", crate, insurance
-//   240–300 truck: what we carry (word swaps on 8th notes)
-//   300–360 four solution cards — each answers a pain from the САНКЦИИ block
+// Solution scenes. Each takes its local frame `f`; timing lives in Promo.tsx.
 const beats = (from: number, to: number) => {
   const r: number[] = [];
   for (let b = from; b < to; b += 15) r.push(b);
@@ -16,7 +11,7 @@ const beats = (from: number, to: number) => {
 };
 
 /* ---------- type wall ---------- */
-const Wall: React.FC<{f: number}> = ({f}) => {
+export const Wall: React.FC<{f: number}> = ({f}) => {
   const hits = beats(0, 60);
   const card = sp(f, 0, 30, {damping: 9, stiffness: 260});
   const chip = sp(f, 30, 30, {damping: 10, stiffness: 300});
@@ -52,7 +47,10 @@ const Wall: React.FC<{f: number}> = ({f}) => {
             {'ИЗ ИТАЛИИ'}
           </Display>
           <Display size={84} color={C.ink} style={{marginTop: 6}}>
-            {'И ЕВРОПЫ'}
+            {'ЕВРОПЫ'}
+          </Display>
+          <Display size={84} color={C.ink} style={{marginTop: 6}}>
+            {'И КИТАЯ'}
           </Display>
           <Display size={84} color={C.orange} style={{marginTop: 6}}>
             {'→ В МОСКВУ'}
@@ -101,7 +99,7 @@ const FULL_C: Pt = {x: 540, y: 900};
 const RIM_A: Pt = {x: 560, y: 840};
 const FACTORIES = [
   {k: 'tile', city: 'САССУОЛО', what: 'ПЛИТКА', p: {x: 230, y: 640}, at: 3},
-  {k: 'sofa', city: 'ПЕЗАРО', what: 'МЕБЕЛЬ', p: {x: 840, y: 980}, at: 15},
+  {k: 'sofa', city: 'ПЕЗАРО', what: 'МЕБЕЛЬ', p: {x: 790, y: 1000}, at: 15},
   {k: 'shoe', city: 'МАРКЕ', what: 'ОБУВЬ', p: {x: 380, y: 1120}, at: 27},
 ];
 
@@ -182,7 +180,7 @@ const WarehouseDot: React.FC<{p: Pt; r: number; label: string; pop: number; labe
   );
 };
 
-const MapScene: React.FC<{f: number}> = ({f}) => {
+export const MapScene: React.FC<{f: number}> = ({f}) => {
   // camera: Italy close-up (slow push) → fast pull-out on the whoosh into the 16s crash
   const out = lerp(f, 44, 64, 0, 1, easeInOut);
   const push = lerp(f, 0, 44, 1, 1.08, (t) => t);
@@ -389,7 +387,7 @@ const CELL = 200;
 const CW = CELL * 4;
 const CH = CELL * 3;
 
-const Tetris: React.FC<{f: number}> = ({f}) => {
+export const Tetris: React.FC<{f: number}> = ({f}) => {
   const ox = (1080 - CW) / 2;
   const oy = 700;
   const landHits = BOXES.map((_, i) => 5 + i * 6);
@@ -487,7 +485,7 @@ const Tetris: React.FC<{f: number}> = ({f}) => {
 /* ---------- truck: what we carry ---------- */
 const CARGO = ['МЕБЕЛЬ', 'СВЕТ', 'ПЛИТКУ', 'САНТЕХНИКУ', 'ОБУВЬ', 'ОДЕЖДУ', 'КОМПЛЕКТУЮЩИЕ', 'ОБОРУДОВАНИЕ'];
 
-const Truck: React.FC<{f: number}> = ({f}) => {
+export const Truck: React.FC<{f: number}> = ({f}) => {
   const enter = lerp(f, 0, 12, -900, 0, easeOut);
   const exit = interpolate(f, [46, 60], [0, 1600], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: easeIn});
   const x = enter + exit;
@@ -532,7 +530,7 @@ const Truck: React.FC<{f: number}> = ({f}) => {
         <div style={{position: 'absolute', left: 0, top: 40, width: 640, height: 330, background: C.orange, border: `8px solid ${C.cream}`, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
           <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(90deg, transparent 0 56px, rgba(0,0,0,0.12) 56px 62px)`}} />
           <Display size={44} color={C.ink}>
-            {'ИТАЛИЯ → МОСКВА'}
+            {'→ В МОСКВУ'}
           </Display>
         </div>
         <div style={{position: 'absolute', left: 660, top: 130, width: 220, height: 240, background: C.cream, borderRadius: '10px 70px 10px 10px'}}>
@@ -553,11 +551,14 @@ const Truck: React.FC<{f: number}> = ({f}) => {
 };
 
 /* ---------- solutions on the beat (mirror the four pains) ---------- */
-const BENEFITS = [
-  {bg: C.orange, fg: C.ink, a: 'ОПЛАТИМ', b: 'ИНВОЙС', sa: 112, sb: 112, ic: 'eur'},
-  {bg: C.cream, fg: C.ink, a: 'БЕЛАЯ', b: 'РАСТАМОЖКА', sa: 120, sb: 88, ic: 'shield'},
-  {bg: C.cobalt, fg: C.cream, a: 'ПОЛНЫЙ ПАКЕТ', b: 'ДОКУМЕНТОВ', sa: 72, sb: 88, ic: 'doc'},
-  {bg: C.ink, fg: C.orange, a: 'ПРОВЕРКА', b: 'ПО САНКЦИЯМ', sa: 100, sb: 80, ic: 'search'},
+// The first four answer the four pains from the САНКЦИИ block.
+export const BENEFITS = [
+  {bg: C.orange, fg: C.ink, a: 'ОПЛАТИМ', b: 'ИНВОЙС', sa: 112, sb: 112, ic: 'eur', sub: 'ПОСТАВЩИКУ В ЕВРОПУ'},
+  {bg: C.cream, fg: C.ink, a: 'БЕЛАЯ', b: 'РАСТАМОЖКА', sa: 120, sb: 88, ic: 'shield', sub: 'ПОЛНОЕ ТАМОЖЕННОЕ ОФОРМЛЕНИЕ'},
+  {bg: C.cobalt, fg: C.cream, a: 'ПОЛНЫЙ ПАКЕТ', b: 'ДОКУМЕНТОВ', sa: 72, sb: 88, ic: 'doc', sub: 'ДЛЯ ВАШЕЙ БУХГАЛТЕРИИ'},
+  {bg: C.ink, fg: C.orange, a: 'ПРОВЕРИМ', b: 'ТОВАР', sa: 110, sb: 130, ic: 'search', sub: 'ВКЛЮЧАЯ САНКЦИОННЫЕ КОДЫ'},
+  {bg: C.cream, fg: C.ink, a: 'МАРКИ', b: 'ЧЕСТНЫЙ ЗНАК', sa: 130, sb: 72, ic: 'dm', sub: 'ЗАКАЖЕМ ЗА ВАС'},
+  {bg: C.orange, fg: C.ink, a: 'МНОГОЛЕТНИЙ', b: 'ОПЫТ', sa: 84, sb: 150, ic: 'star', sub: 'НАМ ДОВЕРЯЮТ'},
 ];
 
 const Icon: React.FC<{k: string; color: string; t: number}> = ({k, color, t}) => {
@@ -582,6 +583,17 @@ const Icon: React.FC<{k: string; color: string; t: number}> = ({k, color, t}) =>
           <path d="M 95 120 L 175 120 M 95 160 L 175 160 M 95 200 L 140 200" {...common} />
         </>
       )}
+      {k === 'dm' && (
+        <>
+          <rect x={30} y={30} width={200} height={200} {...common} />
+          {[[60, 60], [120, 60], [170, 90], [60, 130], [100, 170], [150, 150], [180, 190], [60, 190]].map(([x, y], j) => (
+            <rect key={j} x={x} y={y} width={30} height={30} fill={color} opacity={t > j / 8 ? 1 : 0} />
+          ))}
+        </>
+      )}
+      {k === 'star' && (
+        <path d="M 130 20 L 160 95 L 240 100 L 178 150 L 200 230 L 130 185 L 60 230 L 82 150 L 20 100 L 100 95 Z" {...common} />
+      )}
       {k === 'search' && (
         <>
           <circle cx={110} cy={110} r={75} {...common} />
@@ -592,7 +604,7 @@ const Icon: React.FC<{k: string; color: string; t: number}> = ({k, color, t}) =>
   );
 };
 
-const Benefit: React.FC<{f: number; i: number}> = ({f, i}) => {
+export const Benefit: React.FC<{f: number; i: number}> = ({f, i}) => {
   const b = BENEFITS[i];
   const s = sp(f, 0, 30, {damping: 11, stiffness: 300, mass: 0.5});
   const dir = i % 2 ? 1 : -1;
@@ -601,7 +613,7 @@ const Benefit: React.FC<{f: number; i: number}> = ({f, i}) => {
       <AbsoluteFill style={{opacity: 0.1, justifyContent: 'center', transform: `rotate(${dir * 90}deg)`}}>
         <Marquee text={b.b} size={300} color={b.fg} speed={30 * dir} outline />
       </AbsoluteFill>
-      <Mono size={30} color={b.fg} style={{position: 'absolute', left: 100, top: 300}}>{`РЕШЕНИЕ 0${i + 1}/04`}</Mono>
+      <Mono size={30} color={b.fg} style={{position: 'absolute', left: 100, top: 300}}>{`0${i + 1} / 0${BENEFITS.length}`}</Mono>
       <div style={{position: 'absolute', top: SAFE_CY - 350, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <div style={{transform: `scale(${interpolate(s, [0, 1], [0.4, 1])}) rotate(${(1 - s) * 60 * dir}deg)`}}>
           <Icon k={b.ic} color={b.fg} t={lerp(f, 0, 11, 0, 1)} />
@@ -616,16 +628,11 @@ const Benefit: React.FC<{f: number; i: number}> = ({f, i}) => {
             {b.b}
           </Display>
         </div>
+        <Mono size={30} color={b.fg} style={{marginTop: 34, opacity: lerp(f, 6, 12, 0, 0.85)}}>
+          {b.sub}
+        </Mono>
       </div>
     </Fill>
   );
 };
 
-export const Drop: React.FC = () => {
-  const f = useCurrentFrame();
-  if (f < 60) return <Wall f={f} />;
-  if (f < 180) return <MapScene f={f - 60} />;
-  if (f < 240) return <Tetris f={f - 180} />;
-  if (f < 300) return <Truck f={f - 240} />;
-  return <Benefit f={(f - 300) % 15} i={Math.floor((f - 300) / 15)} />;
-};

@@ -257,16 +257,3 @@ export const Grid: React.FC<{color: string; size?: number; opacity?: number; off
     }}
   />
 );
-
-/** Brand mark: three cargo blocks that consolidate into an arrow. */
-export const Logo: React.FC<{size?: number; color?: string; accent?: string; t?: number}> = ({size = 160, color = C.ink, accent = C.orange, t = 1}) => {
-  const k = Math.min(1, Math.max(0, t));
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100">
-      <rect x={8 - (1 - k) * 30} y={52} width={26} height={26} rx={3} fill={color} />
-      <rect x={8 - (1 - k) * 50} y={22} width={26} height={26} rx={3} fill={color} opacity={0.55} />
-      <rect x={38 - (1 - k) * 40} y={52} width={26} height={26} rx={3} fill={color} />
-      <path d={`M 68 30 L 94 65 L 68 100 L 68 82 L 50 82 L 50 48 L 68 48 Z`} fill={accent} transform={`translate(${(1 - k) * 60} -15)`} />
-    </svg>
-  );
-};
