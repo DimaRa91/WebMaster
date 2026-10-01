@@ -7,8 +7,10 @@
     "music": "python3 music/compose.py"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
     "@fontsource/unbounded": "^5.3.0",
     "@remotion/cli": "^4.0.532",
     "@remotion/fonts": "^4.0.532",

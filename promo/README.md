@@ -83,3 +83,14 @@ npm install
 npm run studio   # интерактивный превью
 npm run render   # → out/promo.mp4
 ```
+
+## Ежедневные ролики
+
+Контент-план и правила — в [`CONTENT_PLAN.md`](CONTENT_PLAN.md).
+
+| День | Композиция | Видео | Музыка |
+|---|---|---|---|
+| 02 | `D02-Steps` ([`src/daily/d02/Steps.tsx`](src/daily/d02/Steps.tsx)): «Как привезти товар с фабрики в Италии: 5 шагов», стиль «досье на столе» | [`out/d02-5-shagov.mp4`](out/d02-5-shagov.mp4), 35 с | оригинальный lo-fi 90 BPM, [`music/compose_d02.py`](music/compose_d02.py) |
+
+Шрифты дня 02: Playfair Display и IBM Plex Mono (SIL OFL 1.1, через Fontsource).
+Рендер: `npx remotion render src/index.ts D02-Steps out/d02-5-shagov.mp4 --browser-executable=...`
