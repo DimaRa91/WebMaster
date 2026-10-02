@@ -92,6 +92,7 @@ npm run render   # → out/promo.mp4
 |---|---|---|---|
 | 02 | `D02-Steps` ([`src/daily/d02/Steps.tsx`](src/daily/d02/Steps.tsx)): «Как привезти товар с фабрики в Италии: 5 шагов», стиль «досье на столе» | [`out/d02-5-shagov.mp4`](out/d02-5-shagov.mp4), 35 с | оригинальный lo-fi 90 BPM, [`music/compose_d02.py`](music/compose_d02.py) |
 | 03 | `D03-Board` ([`src/daily/d03/Board.tsx`](src/daily/d03/Board.tsx)): «Табло отправлений» — все маршруты и сроки до Москвы на перекидном табло | [`out/d03-tablo.mp4`](out/d03-tablo.mp4), 22 с | оригинальное минимал-техно 120 BPM, [`music/compose_d03.py`](music/compose_d03.py) |
+| 04 | `D04-China` ([`src/daily/d04/ChinaModes.tsx`](src/daily/d04/ChinaModes.tsx)): «3 способа привезти товар из Китая» — гонка авто, ЖД и авиа, шкала сроков, чек-лист | [`out/d04-kitay-3-sposoba.mp4`](out/d04-kitay-3-sposoba.mp4), 29 с | оригинальный фанк 100 BPM, [`music/compose_d04.py`](music/compose_d04.py) |
 
-Шрифты дня 02: Playfair Display и IBM Plex Mono (SIL OFL 1.1, через Fontsource).
+Шрифты дня 02: Playfair Display и IBM Plex Mono; дня 04: Rubik (все SIL OFL 1.1, через Fontsource).
 Рендер: `npx remotion render src/index.ts D02-Steps out/d02-5-shagov.mp4 --browser-executable=...`

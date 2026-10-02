@@ -17,6 +17,9 @@ const faces: [string, string, string, string?][] = [
   ['Playfair Display', 'playfair-display', '900', 'italic'],
   ['IBM Plex Mono', 'ibm-plex-mono', '400'],
   ['IBM Plex Mono', 'ibm-plex-mono', '600'],
+  ['Rubik', 'rubik', '500'],
+  ['Rubik', 'rubik', '700'],
+  ['Rubik', 'rubik', '900'],
 ];
 
 const handle = delayRender('fonts');
