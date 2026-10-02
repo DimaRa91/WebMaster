@@ -82,7 +82,7 @@ export const Versus: React.FC = () => {
       {/* neon floor grid on the lower half */}
       <AbsoluteFill style={{top: 960, backgroundImage: `linear-gradient(rgba(0,245,196,0.18) 2px, transparent 2px), linear-gradient(90deg, rgba(0,245,196,0.18) 2px, transparent 2px)`, backgroundSize: '80px 80px', backgroundPosition: `0 ${(f * 3) % 80}px`, transform: 'perspective(600px) rotateX(55deg)', transformOrigin: 'top', opacity: 0.6}} />
       {/* grey static on the upper half */}
-      <AbsoluteFill style={{bottom: 960, opacity: 0.08, backgroundImage: `radial-gradient(#fff 1px, transparent 1.5px)`, backgroundSize: `${5 + (f % 3)}px ${5 + (f % 2)}px`}} />
+      <AbsoluteFill style={{bottom: 960, opacity: 0.08, backgroundImage: `radial-gradient(#fff 1px, transparent 1.5px)`, backgroundSize: '6px 6px', backgroundPosition: `0 ${Math.floor(f / 6) * 2}px`}} />
 
       {/* hook */}
       {f < D09.round0 && (
