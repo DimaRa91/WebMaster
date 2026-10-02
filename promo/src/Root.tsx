@@ -9,6 +9,7 @@ import {D05, MythFact} from './daily/d05/MythFact';
 import {D06, Warehouse} from './daily/d06/Warehouse';
 import {Checklist, D07} from './daily/d07/Checklist';
 import {Blueprint, D08} from './daily/d08/Blueprint';
+import {D09, Versus} from './daily/d09/Versus';
 import {FPS, H, W} from './theme';
 
 // Day 01 = "Promo" (kinetic promo), day 02 onwards live in src/daily/.
@@ -22,5 +23,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="D06-Warehouse" component={Warehouse} durationInFrames={D06.total} fps={FPS} width={W} height={H} />
     <Composition id="D07-Checklist" component={Checklist} durationInFrames={D07.total} fps={FPS} width={W} height={H} />
     <Composition id="D08-Blueprint" component={Blueprint} durationInFrames={D08.total} fps={FPS} width={W} height={H} />
+    <Composition id="D09-Versus" component={Versus} durationInFrames={D09.total} fps={FPS} width={W} height={H} />
   </>
 );
