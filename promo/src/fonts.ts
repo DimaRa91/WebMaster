@@ -20,6 +20,9 @@ const faces: [string, string, string, string?][] = [
   ['Rubik', 'rubik', '500'],
   ['Rubik', 'rubik', '700'],
   ['Rubik', 'rubik', '900'],
+  ['Manrope', 'manrope', '500'],
+  ['Manrope', 'manrope', '700'],
+  ['Manrope', 'manrope', '800'],
 ];
 
 const handle = delayRender('fonts');
