@@ -16,11 +16,11 @@ const XF = 12; // crossfade length
 
 type Shot = {src: string; from: number; to: number; start: number; pos: string; zoom: [number, number]};
 const SHOTS: Shot[] = [
-  {src: 'footage/port.mp4', from: 0, to: 140, start: 0, pos: '52% 50%', zoom: [1.12, 1.04]},
+  {src: 'footage/highway.mp4', from: 0, to: 140, start: 54, pos: '30% 50%', zoom: [1.1, 1.02]},
   {src: 'footage/window.mp4', from: 140, to: 340, start: 0, pos: '74% 50%', zoom: [1.0, 1.08]},
   {src: 'footage/docs.mp4', from: 340, to: 540, start: 0, pos: '46% 50%', zoom: [1.06, 1.0]},
   {src: 'footage/port.mp4', from: 540, to: 720, start: 120, pos: '12% 50%', zoom: [1.0, 1.07]},
-  {src: 'footage/manager.mp4', from: 720, to: 900, start: 180, pos: '42% 50%', zoom: [1.04, 1.1]},
+  {src: 'footage/moscow.mp4', from: 720, to: 900, start: 0, pos: '50% 50%', zoom: [1.0, 1.08]},
 ];
 
 export const D14 = {total: 900};
@@ -158,7 +158,7 @@ export const RealDoc: React.FC = () => {
         <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 28, letterSpacing: '0.12em', color: R.white, textTransform: 'uppercase', textShadow: '0 1px 10px rgba(0,0,0,0.8)'}}>Сборные грузы · Европа · Китай → Москва</div>
       </div>
 
-      <Caption f={f} from={0} to={140} kicker="Для бизнеса" title="Везёте товар из Европы и Китая?" sub="Сборные грузы — от одной коробки до целой машины" />
+      <Caption f={f} from={0} to={140} kicker="Италия · Европа · Китай" title="Везёте товар из Европы и Китая?" sub="Сборные грузы — от одной коробки до целой машины" />
       <Caption f={f} from={140} to={340} kicker="Персональный менеджер" title="Один человек ведёт ваш груз" sub="От фабрики и оплаты инвойса — до склада в Москве" />
       <Caption f={f} from={340} to={540} kicker="Белая растаможка" title="Полный пакет документов" sub="Для вашей бухгалтерии. Проверим товар по санкционным кодам и закажем «Честный знак»" />
       <Terms f={f} />
