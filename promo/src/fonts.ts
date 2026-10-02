@@ -26,6 +26,18 @@ const faces: [string, string, string, string?][] = [
   ['Nunito', 'nunito', '600'],
   ['Nunito', 'nunito', '800'],
   ['Nunito', 'nunito', '900'],
+  ['Caveat', 'caveat', '600'],
+  ['Caveat', 'caveat', '700'],
+  ['Oswald', 'oswald', '500'],
+  ['Oswald', 'oswald', '700'],
+  ['PT Serif', 'pt-serif', '400'],
+  ['PT Serif', 'pt-serif', '700'],
+  ['Exo 2', 'exo-2', '500'],
+  ['Exo 2', 'exo-2', '800'],
+  ['Russo One', 'russo-one', '400'],
+  ['Comfortaa', 'comfortaa', '500'],
+  ['Comfortaa', 'comfortaa', '700'],
+  ['Press Start 2P', 'press-start-2p', '400'],
 ];
 
 const handle = delayRender('fonts');
