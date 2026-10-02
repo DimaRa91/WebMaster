@@ -23,6 +23,9 @@ const faces: [string, string, string, string?][] = [
   ['Manrope', 'manrope', '500'],
   ['Manrope', 'manrope', '700'],
   ['Manrope', 'manrope', '800'],
+  ['Nunito', 'nunito', '600'],
+  ['Nunito', 'nunito', '800'],
+  ['Nunito', 'nunito', '900'],
 ];
 
 const handle = delayRender('fonts');

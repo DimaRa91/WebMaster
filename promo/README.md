@@ -94,6 +94,7 @@ npm run render   # → out/promo.mp4
 | 03 | `D03-Board` ([`src/daily/d03/Board.tsx`](src/daily/d03/Board.tsx)): «Табло отправлений» — все маршруты и сроки до Москвы на перекидном табло | [`out/d03-tablo.mp4`](out/d03-tablo.mp4), 22 с | оригинальное минимал-техно 120 BPM, [`music/compose_d03.py`](music/compose_d03.py) |
 | 04 | `D04-China` ([`src/daily/d04/ChinaModes.tsx`](src/daily/d04/ChinaModes.tsx)): «3 способа привезти товар из Китая» — гонка авто, ЖД и авиа, шкала сроков, чек-лист | [`out/d04-kitay-3-sposoba.mp4`](out/d04-kitay-3-sposoba.mp4), 29 с | оригинальный фанк 100 BPM, [`music/compose_d04.py`](music/compose_d04.py) |
 | 05 | `D05-MythFact` ([`src/daily/d05/MythFact.tsx`](src/daily/d05/MythFact.tsx)): «Миф или факт» — 5 свайп-карточек с таймером и ответом | [`out/d05-mif-ili-fakt.mp4`](out/d05-mif-ili-fakt.mp4), 28 с | оригинальный поп-бит 120 BPM, [`music/compose_d05.py`](music/compose_d05.py) |
+| 06 | `D06-Warehouse` ([`src/daily/d06/Warehouse.tsx`](src/daily/d06/Warehouse.tsx)): «Что происходит с вашим грузом на складе в Римини» — изометрический склад, 6 шагов | [`out/d06-sklad-rimini.mp4`](out/d06-sklad-rimini.mp4), 31 с | оригинальный эмбиент с маримбой 90 BPM, [`music/compose_d06.py`](music/compose_d06.py) |
 
-Шрифты дня 02: Playfair Display и IBM Plex Mono; дня 04: Rubik; дня 05: Manrope (все SIL OFL 1.1, через Fontsource).
+Шрифты дня 02: Playfair Display и IBM Plex Mono; дня 04: Rubik; дня 05: Manrope; дня 06: Nunito (все SIL OFL 1.1, через Fontsource).
 Рендер: `npx remotion render src/index.ts D02-Steps out/d02-5-shagov.mp4 --browser-executable=...`
