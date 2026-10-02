@@ -11,6 +11,7 @@ import {Checklist, D07} from './daily/d07/Checklist';
 import {Blueprint, D08} from './daily/d08/Blueprint';
 import {D09, Versus} from './daily/d09/Versus';
 import {D10, Marking} from './daily/d10/Marking';
+import {D11, Terminal} from './daily/d11/Terminal';
 import {FPS, H, W} from './theme';
 
 // Day 01 = "Promo" (kinetic promo), day 02 onwards live in src/daily/.
@@ -26,5 +27,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="D08-Blueprint" component={Blueprint} durationInFrames={D08.total} fps={FPS} width={W} height={H} />
     <Composition id="D09-Versus" component={Versus} durationInFrames={D09.total} fps={FPS} width={W} height={H} />
     <Composition id="D10-Marking" component={Marking} durationInFrames={D10.total} fps={FPS} width={W} height={H} />
+    <Composition id="D11-Terminal" component={Terminal} durationInFrames={D11.total} fps={FPS} width={W} height={H} />
   </>
 );
