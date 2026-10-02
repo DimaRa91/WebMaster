@@ -105,3 +105,11 @@ npm run render   # → out/promo.mp4
 
 Шрифты дня 02: Playfair Display и IBM Plex Mono; дня 04: Rubik; дня 05: Manrope; дня 06: Nunito; дней 07–13: Caveat, Exo 2, Russo One, Press Start 2P, Oswald, PT Serif, Comfortaa (все SIL OFL 1.1, через Fontsource). Темы дней 07–13 основаны на исследовании рынка — см. [`RESEARCH.md`](RESEARCH.md). Общий синтезатор для треков — [`music/synth.py`](music/synth.py).
 Рендер: `npx remotion render src/index.ts D02-Steps out/d02-5-shagov.mp4 --browser-executable=...`
+
+## Лаунж-версии
+
+В [`out/lounge/`](out/lounge) лежат версии всех 13 роликов со спокойной лаунж-музыкой
+(файлы `*-lounge.mp4`). Видеоряд тот же, звук заменён: электропиано с джазовыми аккордами,
+контрабас, щётки, вибрафон. Темп совпадает с монтажной сеткой ролика, поэтому склейки
+попадают в доли; громкость приведена к −14 LUFS. Генератор — [`music/lounge.py`](music/lounge.py),
+пересборка всех версий — `music/make_lounge_versions.sh`.
