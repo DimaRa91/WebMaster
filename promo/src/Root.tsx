@@ -1,5 +1,5 @@
 import React from 'react';
-import {Composition} from 'remotion';
+import {Composition, Still} from 'remotion';
 import './fonts';
 import {Promo} from './Promo';
 import {Steps} from './daily/d02/Steps';
@@ -15,6 +15,7 @@ import {D11, Terminal} from './daily/d11/Terminal';
 import {D12, Newspaper} from './daily/d12/Newspaper';
 import {D13, PaperExplainer} from './daily/d13/Paper';
 import {D14, RealDoc} from './daily/d14/RealDoc';
+import {VsBanner} from './banners/VsBanner';
 import {FPS, H, W} from './theme';
 
 // Day 01 = "Promo" (kinetic promo), day 02 onwards live in src/daily/.
@@ -34,5 +35,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="D12-Newspaper" component={Newspaper} durationInFrames={D12.total} fps={FPS} width={W} height={H} />
     <Composition id="D13-Paper" component={PaperExplainer} durationInFrames={D13.total} fps={FPS} width={W} height={H} />
     <Composition id="D14-Real" component={RealDoc} durationInFrames={D14.total} fps={FPS} width={W} height={H} />
+    <Still id="Banner-Vs" component={VsBanner} width={1080} height={1350} />
   </>
 );
