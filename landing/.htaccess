@@ -1,0 +1,23 @@
+# Запрет доступа к служебным файлам
+<FilesMatch "^(config(\.example)?\.php|README\.md|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
+AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
+
+# Кэширование статики
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
