@@ -7,7 +7,8 @@
   <meta name="description" content="Доставка сборных грузов из Италии, Европы и Китая в Москву. Склады консолидации в Римини и Вильнюсе, белая растаможка, полный пакет документов, оплата инвойсов поставщикам. Расчёт стоимости по инвойсу.">
   <link rel="canonical" href="https://example.ru/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#F26A21">
+  <meta name="theme-color" content="#0A0B10">
+  <meta name="color-scheme" content="dark">
   <meta name="format-detection" content="telephone=no">
 
   <!-- Open Graph / соцсети -->
@@ -22,10 +23,11 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/oswald-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/unbounded-cyrillic-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/img/hero.jpg" as="image">
   <link rel="stylesheet" href="assets/styles.css">
+  <script>document.documentElement.classList.add('js')</script>
 
   <!-- Структурированные данные: услуга и вопросы-ответы -->
   <script type="application/ld+json">
@@ -75,18 +77,19 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a class="logo" href="#top" aria-label="На главную">
         <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="#F26A21"/><path d="M8 16h16M17 9l7 7-7 7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 32 32" width="34" height="34"><rect width="32" height="32" rx="9" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A3D"/><stop offset="1" stop-color="#F2551C"/></linearGradient></defs><path d="M8 16h16M17 9l7 7-7 7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-        <span class="logo-text">Сборные грузы<small>Европа · Китай → Москва</small></span>
+        <span class="logo-text">Сборные грузы<small>EU · CN → MSK</small></span>
       </a>
       <nav class="nav" id="nav" aria-label="Основная навигация">
         <ul>
-          <li><a href="#routes">Маршруты и сроки</a></li>
+          <li><a href="#routes">Маршруты</a></li>
           <li><a href="#services">Услуги</a></li>
           <li><a href="#how">Как работаем</a></li>
           <li><a href="#faq">Вопросы</a></li>
@@ -95,7 +98,7 @@
       </nav>
       <div class="header-actions">
         <a class="header-phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
-        <a class="btn btn-sm" href="#lead">Оставить заявку</a>
+        <a class="btn btn-sm" href="#lead">Заявка</a>
         <button class="burger" type="button" aria-controls="nav" aria-expanded="false" aria-label="Открыть меню"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -108,52 +111,114 @@
         <video class="hero-video" autoplay muted loop playsinline preload="none" poster="assets/img/hero.jpg">
           <source src="assets/img/hero.mp4" type="video/mp4">
         </video>
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
       </div>
       <div class="container hero-inner">
-        <p class="eyebrow">Италия · Европа · Китай → Москва</p>
-        <h1 id="hero-title">Сборные грузы в&nbsp;Москву —<br><span>белая доставка от&nbsp;одной коробки</span></h1>
-        <p class="hero-lead">Свои склады консолидации в&nbsp;Римини и&nbsp;Вильнюсе. Белая растаможка и&nbsp;полный пакет документов для бухгалтерии. Отправки каждую неделю.</p>
-        <ul class="hero-facts" aria-label="Сроки доставки до Москвы">
-          <li><b>14–21</b><span>день из Вильнюса</span></li>
-          <li><b>18–25</b><span>дней из Римини</span></li>
-          <li><b>25–30</b><span>дней авто из Гуанчжоу</span></li>
-        </ul>
-        <div class="hero-cta">
-          <a class="btn btn-lg" href="#lead">Рассчитать стоимость доставки</a>
-          <p class="hero-note">Пришлите инвойс или список товаров — менеджер подготовит расчёт до склада в Москве</p>
+        <div class="hero-copy">
+          <p class="chip"><span class="dot" aria-hidden="true"></span>Отправки каждую неделю</p>
+          <h1 id="hero-title">Сборные грузы<br>в&nbsp;Москву <span class="grad">из&nbsp;Европы и&nbsp;Китая</span></h1>
+          <p class="hero-lead">Белая доставка от&nbsp;одной коробки. Свои склады консолидации в&nbsp;Римини и&nbsp;Вильнюсе, белая растаможка и&nbsp;полный пакет документов для бухгалтерии.</p>
+          <div class="hero-cta">
+            <a class="btn btn-lg btn-glow" href="#lead">Рассчитать стоимость <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-lg btn-glass" href="#routes">Маршруты и сроки</a>
+          </div>
+        </div>
+
+        <!-- Виджет сроков -->
+        <aside class="eta reveal" aria-labelledby="eta-title">
+          <div class="eta-head">
+            <h2 id="eta-title" class="mono">ETA → Москва</h2>
+            <span class="live"><span class="dot" aria-hidden="true"></span>онлайн-справка</span>
+          </div>
+          <div class="eta-tabs" role="tablist" aria-label="Откуда отправка">
+            <button role="tab" aria-selected="true" data-route="vilnius">Вильнюс</button>
+            <button role="tab" aria-selected="false" data-route="rimini">Римини</button>
+            <button role="tab" aria-selected="false" data-route="gz-auto">Гуанчжоу · авто</button>
+            <button role="tab" aria-selected="false" data-route="gz-rail">Гуанчжоу · ЖД</button>
+            <button role="tab" aria-selected="false" data-route="gz-air">Авиа</button>
+          </div>
+          <div class="eta-body" role="tabpanel" aria-live="polite">
+            <p class="eta-route mono" id="eta-route">LT · Вильнюс → RU · Москва</p>
+            <p class="eta-days"><span id="eta-days">14–21</span><small id="eta-unit">день</small></p>
+            <div class="eta-bar" aria-hidden="true"><span id="eta-bar"></span></div>
+            <p class="eta-note" id="eta-note">Склад для грузов из Германии, Польши и других стран ЕС</p>
+          </div>
+          <a class="btn btn-block" href="#lead">Получить точный расчёт</a>
+        </aside>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>Белая растаможка</span><span>Документы для бухгалтерии</span><span>От одной коробки</span><span>Оплата инвойсов в Италию</span><span>Проверка санкционных кодов</span><span>«Честный знак»</span><span>Упаковка и страхование</span><span>Персональный менеджер</span>
+          <span>Белая растаможка</span><span>Документы для бухгалтерии</span><span>От одной коробки</span><span>Оплата инвойсов в Италию</span><span>Проверка санкционных кодов</span><span>«Честный знак»</span><span>Упаковка и страхование</span><span>Персональный менеджер</span>
         </div>
       </div>
     </section>
 
-    <!-- 2. Маршруты -->
+    <!-- 2. Карта маршрутов -->
     <section class="section" id="routes" aria-labelledby="routes-title">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Маршруты</p>
-          <h2 id="routes-title">Сроки доставки до Москвы</h2>
-          <p class="section-lead">Срок зависит от склада отправки и способа доставки. Точный срок менеджер назовёт при расчёте.</p>
+        <header class="section-head reveal">
+          <p class="eyebrow mono">// маршруты</p>
+          <h2 id="routes-title">Три точки отправки — один склад в&nbsp;Москве</h2>
+          <p class="section-lead">Срок зависит от склада и способа доставки. Точный срок менеджер назовёт при расчёте.</p>
         </header>
+
+        <div class="map reveal">
+          <svg class="map-svg" viewBox="0 0 1000 520" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Схема маршрутов</title>
+            <desc id="map-desc">Римини — Москва 18–25 дней, Вильнюс — Москва 14–21 день, Гуанчжоу — Москва: авто 25–30 дней, ЖД 35–45 дней, авиа по запросу.</desc>
+            <defs>
+              <linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FFC27A"/></linearGradient>
+              <linearGradient id="cg" x1="1" x2="0"><stop offset="0" stop-color="#5AD1FF"/><stop offset="1" stop-color="#FF8A3D"/></linearGradient>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="routes-lines" fill="none" stroke-linecap="round">
+              <path class="line line-eu" d="M150 330 Q 300 190 470 150" stroke="url(#rg)"/>
+              <path class="line line-eu" d="M300 175 Q 390 140 470 150" stroke="url(#rg)"/>
+              <path class="line line-cn" d="M860 400 Q 700 230 470 150" stroke="url(#cg)"/>
+              <path class="line line-cn line-rail" d="M860 400 Q 690 330 470 150" stroke="url(#cg)"/>
+              <path class="line line-air" d="M860 400 Q 700 40 470 150" stroke="#5AD1FF"/>
+            </g>
+            <g class="nodes" font-family="JetBrains Mono, monospace">
+              <g class="node" transform="translate(150 330)"><circle r="18" class="pulse"/><circle r="7"/><text class="lbl-full" x="-12" y="40">RIMINI · 18–25 дн</text><text class="lbl-short" x="-20" y="52">RIMINI</text></g>
+              <g class="node" transform="translate(300 175)"><circle r="18" class="pulse"/><circle r="7"/><text class="lbl-full" x="-60" y="-24">VILNIUS · 14–21 дн</text><text class="lbl-short" x="-70" y="56">VILNIUS</text></g>
+              <g class="node node-cn" transform="translate(860 400)"><circle r="18" class="pulse"/><circle r="7"/><text class="lbl-full" x="-150" y="44">GUANGZHOU · 25–45 дн</text><text class="lbl-short" x="-150" y="56">GUANGZHOU</text></g>
+              <g class="node node-msk" transform="translate(470 150)"><circle r="26" class="pulse"/><circle r="10"/><text x="22" y="-18">MOSCOW</text></g>
+            </g>
+          </svg>
+          <ul class="map-legend mono" aria-hidden="true">
+            <li><i class="lg-eu"></i>авто из Европы</li>
+            <li><i class="lg-cn"></i>авто и ЖД из Китая</li>
+            <li><i class="lg-air"></i>авиа</li>
+          </ul>
+        </div>
+
         <div class="routes">
-          <article class="route-card">
-            <img src="assets/img/truck-800.jpg" alt="Грузовик на трассе в Италии" width="800" height="450" loading="lazy" decoding="async">
+          <article class="route-card reveal">
+            <div class="route-img"><img src="assets/img/truck-800.jpg" alt="Грузовик на трассе в Италии" width="800" height="450" loading="lazy" decoding="async"></div>
             <div class="route-body">
-              <h3>Римини, Италия</h3>
-              <p class="route-days"><b>18–25</b> дней</p>
-              <p>Склад консолидации рядом с мебельными фабриками Пезаро, производителями плитки в Сассуоло и обуви в регионе Марке. Забираем груз с фабрик сами.</p>
+              <p class="mono route-code">IT · Римини</p>
+              <h3>Склад в Римини</h3>
+              <p class="route-days"><b>18</b>–<b>25</b> <span>дней</span></p>
+              <p>Рядом мебельные фабрики Пезаро, плитка Сассуоло, обувь региона Марке. Забираем груз с фабрик сами.</p>
             </div>
           </article>
-          <article class="route-card">
-            <img src="assets/img/port-800.jpg" alt="Контейнерный терминал" width="800" height="450" loading="lazy" decoding="async">
+          <article class="route-card reveal">
+            <div class="route-img"><img src="assets/img/port-800.jpg" alt="Контейнерный терминал" width="800" height="450" loading="lazy" decoding="async"></div>
             <div class="route-body">
-              <h3>Вильнюс, Литва</h3>
-              <p class="route-days"><b>14–21</b> день</p>
-              <p>Склад для грузов из Германии, Польши и других стран Евросоюза.</p>
+              <p class="mono route-code">LT · Вильнюс</p>
+              <h3>Склад в Вильнюсе</h3>
+              <p class="route-days"><b>14</b>–<b>21</b> <span>день</span></p>
+              <p>Для грузов из Германии, Польши и других стран Евросоюза.</p>
             </div>
           </article>
-          <article class="route-card route-card--accent">
-            <img src="assets/img/moscow-800.jpg" alt="Вечерняя Москва" width="800" height="450" loading="lazy" decoding="async">
+          <article class="route-card reveal">
+            <div class="route-img"><img src="assets/img/moscow-800.jpg" alt="Вечерняя Москва" width="800" height="450" loading="lazy" decoding="async"></div>
             <div class="route-body">
-              <h3>Гуанчжоу, Китай</h3>
+              <p class="mono route-code">CN · Гуанчжоу</p>
+              <h3>Доставка из Китая</h3>
               <dl class="route-modes">
                 <div><dt>Авто</dt><dd>25–30 дней</dd></div>
                 <div><dt>ЖД</dt><dd>35–45 дней</dd></div>
@@ -165,32 +230,73 @@
       </div>
     </section>
 
-    <!-- 3. Услуги -->
-    <section class="section section--tint" id="services" aria-labelledby="services-title">
+    <!-- 3. Услуги: bento -->
+    <section class="section" id="services" aria-labelledby="services-title">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Услуги</p>
-          <h2 id="services-title">Берём на себя весь путь груза</h2>
+        <header class="section-head reveal">
+          <p class="eyebrow mono">// услуги</p>
+          <h2 id="services-title">Весь путь груза под&nbsp;ключ</h2>
         </header>
-        <ul class="services">
-          <li><h3>Любой объём</h3><p>От одной коробки. Груз копится на складе и едет одной партией — вы платите только за своё место.</p></li>
-          <li><h3>Забор с фабрик</h3><p>Сами забираем товар у поставщиков в Италии и Европе.</p></li>
-          <li><h3>Оплата инвойсов</h3><p>Оплатим инвойс вашему поставщику в Италии.</p></li>
-          <li><h3>Белая растаможка</h3><p>Полное таможенное оформление и пакет документов для бухгалтерии.</p></li>
-          <li><h3>Проверка товара</h3><p>До отправки проверяем товар по санкционным ограничениям, включая санкционные коды.</p></li>
-          <li><h3>«Честный знак»</h3><p>Закажем марки для товаров, которые подлежат обязательной маркировке.</p></li>
-          <li><h3>Упаковка и страхование</h3><p>Упакуем, сделаем обрешётку и застрахуем груз.</p></li>
-          <li><h3>Персональный менеджер</h3><p>Один человек ведёт ваш груз и на связи на каждом этапе.</p></li>
-          <li><h3>Отправки каждую неделю</h3><p>Регулярные отправки — планировать поставки проще.</p></li>
+        <ul class="bento">
+          <li class="tile tile-xl reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7M12 11v10"/></svg></span>
+            <h3>Любой объём — от&nbsp;одной коробки</h3>
+            <p>Груз копится на складе консолидации, пока вы собираете заказы у разных поставщиков, и едет одной партией. Вы платите только за своё место.</p>
+            <div class="stack" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="you"></i><i></i></div>
+          </li>
+          <li class="tile tile-accent reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span>
+            <h3>Белая растаможка</h3>
+            <p>Полное таможенное оформление и пакет документов для бухгалтерии.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5M8 11l2 2 4-4"/></svg></span>
+            <h3>Проверка товара</h3>
+            <p>До отправки проверяем товар, включая санкционные коды.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span>
+            <h3>Оплата инвойсов</h3>
+            <p>Оплатим инвойс вашему поставщику в Италии.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M1 16V6h13v10M14 9h4l4 4v3h-8"/><circle cx="6" cy="17.5" r="2"/><circle cx="18" cy="17.5" r="2"/></svg></span>
+            <h3>Забор с фабрик</h3>
+            <p>Сами забираем товар у поставщиков в Италии и Европе.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2v16H3zM7 4h1v16H7zM10 4h2v16h-2zM14 4h1v16h-1zM17 4h1v16h-1zM20 4h1v16h-1z"/></svg></span>
+            <h3>«Честный знак»</h3>
+            <p>Закажем марки для товаров с обязательной маркировкой.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <h3>Упаковка и страхование</h3>
+            <p>Упакуем, сделаем обрешётку и застрахуем груз.</p>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <h3>Персональный менеджер</h3>
+            <p>Один человек ведёт ваш груз от заявки до склада в Москве и всегда на связи.</p>
+            <div class="chat" aria-hidden="true">
+              <p class="msg msg-in">Груз забрали с фабрики в Пезаро ✓</p>
+              <p class="msg msg-in">Документы для бухгалтерии готовы</p>
+            </div>
+          </li>
+          <li class="tile reveal">
+            <span class="tile-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>
+            <h3>Каждую неделю</h3>
+            <p>Регулярные отправки — проще планировать поставки.</p>
+          </li>
         </ul>
       </div>
     </section>
 
     <!-- 4. Что возим -->
-    <section class="section" id="goods" aria-labelledby="goods-title">
-      <div class="container goods">
+    <section class="section section-tight" id="goods" aria-labelledby="goods-title">
+      <div class="container goods reveal">
         <div>
-          <p class="eyebrow">Что возим</p>
+          <p class="eyebrow mono">// что возим</p>
           <h2 id="goods-title">Товары для бизнеса</h2>
           <p class="section-lead">Возим товары, разрешённые к вывозу из ЕС. Каждую позицию проверяем на санкционные ограничения до отправки.</p>
         </div>
@@ -201,14 +307,14 @@
     </section>
 
     <!-- 5. Сравнение -->
-    <section class="section section--dark" id="compare" aria-labelledby="compare-title">
+    <section class="section" id="compare" aria-labelledby="compare-title">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Почему белая доставка</p>
+        <header class="section-head reveal">
+          <p class="eyebrow mono">// почему белая доставка</p>
           <h2 id="compare-title">Сравните, что вы получаете</h2>
         </header>
         <div class="compare">
-          <div class="compare-col compare-col--bad">
+          <div class="compare-col compare-col--bad reveal">
             <h3><span aria-hidden="true">✕</span> Серое карго</h3>
             <ul>
               <li>Товар приходит без документов на вашу компанию</li>
@@ -216,7 +322,7 @@
               <li>Риск задержки груза</li>
             </ul>
           </div>
-          <div class="compare-col compare-col--good">
+          <div class="compare-col compare-col--good reveal">
             <h3><span aria-hidden="true">✓</span> Белая доставка</h3>
             <ul>
               <li>Белая растаможка и полный пакет документов</li>
@@ -231,33 +337,35 @@
     <!-- 6. Как работаем -->
     <section class="section" id="how" aria-labelledby="how-title">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Как работаем</p>
+        <header class="section-head reveal">
+          <p class="eyebrow mono">// процесс</p>
           <h2 id="how-title">5 шагов от заявки до склада в&nbsp;Москве</h2>
         </header>
-        <ol class="steps">
-          <li><h3>Заявка</h3><p>Оставьте заявку и пришлите инвойс или список товаров с весом и объёмом.</p></li>
-          <li><h3>Расчёт и проверка</h3><p>Менеджер рассчитает стоимость и проверит товар на санкционные ограничения.</p></li>
-          <li><h3>Оплата и забор</h3><p>Оплатим поставщику инвойс, заберём груз с фабрики.</p></li>
-          <li><h3>Консолидация</h3><p>Груз собирается на складе в Римини, Вильнюсе или Гуанчжоу, упаковывается и уходит ближайшей отправкой.</p></li>
-          <li><h3>Растаможка и выдача</h3><p>Белое таможенное оформление, документы для бухгалтерии, груз на складе в Москве.</p></li>
+        <ol class="steps" id="steps">
+          <li class="reveal"><h3>Заявка</h3><p>Оставьте заявку и пришлите инвойс или список товаров с весом и объёмом.</p></li>
+          <li class="reveal"><h3>Расчёт и проверка</h3><p>Менеджер рассчитает стоимость и проверит товар на санкционные ограничения.</p></li>
+          <li class="reveal"><h3>Оплата и забор</h3><p>Оплатим поставщику инвойс, заберём груз с фабрики.</p></li>
+          <li class="reveal"><h3>Консолидация</h3><p>Груз собирается на складе, упаковывается и уходит ближайшей отправкой.</p></li>
+          <li class="reveal"><h3>Растаможка и выдача</h3><p>Белое оформление, документы для бухгалтерии, груз на складе в Москве.</p></li>
         </ol>
       </div>
     </section>
 
     <!-- 7. Форма заявки -->
-    <section class="section section--tint" id="lead" aria-labelledby="lead-title">
+    <section class="section" id="lead" aria-labelledby="lead-title">
       <div class="container lead">
-        <div class="lead-info">
-          <p class="eyebrow">Заявка</p>
+        <div class="lead-info reveal">
+          <p class="eyebrow mono">// заявка</p>
           <h2 id="lead-title">Рассчитать стоимость доставки</h2>
           <p class="section-lead">Оставьте контакты — персональный менеджер свяжется с вами, уточнит детали и подготовит расчёт до склада в Москве.</p>
-          <figure class="lead-photo">
-            <img src="assets/img/manager.jpg" alt="Менеджер на связи с клиентом" width="1200" height="675" loading="lazy" decoding="async">
-          </figure>
+          <ul class="lead-points">
+            <li>Расчёт по инвойсу или списку товаров</li>
+            <li>Проверка товара до отправки</li>
+            <li>Без обязательств</li>
+          </ul>
         </div>
 
-        <form class="lead-form" id="lead-form" action="send.php" method="post" novalidate>
+        <form class="lead-form reveal" id="lead-form" action="send.php" method="post" novalidate>
           <div class="field">
             <label for="f-name">Имя <span class="req" aria-hidden="true">*</span></label>
             <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
@@ -315,7 +423,7 @@
             <p class="field-error" id="f-consent-err" role="alert"></p>
           </div>
 
-          <button class="btn btn-lg btn-block" type="submit">Получить расчёт</button>
+          <button class="btn btn-lg btn-block btn-glow" type="submit">Получить расчёт</button>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -324,11 +432,11 @@
     <!-- 8. FAQ -->
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container narrow">
-        <header class="section-head">
-          <p class="eyebrow">Вопросы</p>
+        <header class="section-head reveal">
+          <p class="eyebrow mono">// вопросы</p>
           <h2 id="faq-title">Частые вопросы</h2>
         </header>
-        <div class="faq">
+        <div class="faq reveal">
           <details>
             <summary>Какой минимальный объём груза?</summary>
             <p>Любой — от одной коробки. Груз копится на складе консолидации, пока вы собираете заказы у разных поставщиков, и отправляется одной партией.</p>
@@ -386,11 +494,13 @@
     </div>
   </footer>
 
+  <a class="sticky-cta btn btn-glow" href="#lead">Рассчитать стоимость</a>
+
   <div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Уведомление о cookie" hidden>
     <p>Мы используем файлы cookie, чтобы сайт работал корректно и чтобы анализировать посещаемость. Подробнее — в <a href="privacy.html#cookies">политике обработки персональных данных</a>.</p>
     <div class="cookie-actions">
       <button class="btn btn-sm" type="button" data-cookie="all">Принять</button>
-      <button class="btn btn-sm btn-ghost" type="button" data-cookie="necessary">Только необходимые</button>
+      <button class="btn btn-sm btn-glass" type="button" data-cookie="necessary">Только необходимые</button>
     </div>
   </div>
 

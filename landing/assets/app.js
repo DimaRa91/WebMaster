@@ -5,6 +5,7 @@
   var METRIKA_ID = '';
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- Год в подвале ----------
   var y = $('#year');
@@ -27,11 +28,107 @@
   // ---------- Видео на первом экране: только без экономии трафика и без reduced motion ----------
   var video = $('.hero-video');
   if (video) {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduce = reduceMotion;
     var save = navigator.connection && navigator.connection.saveData;
     if (reduce || save) { video.removeAttribute('autoplay'); video.pause(); }
     else { video.preload = 'auto'; var p = video.play(); if (p && p.catch) p.catch(function () {}); }
   }
+
+
+  // ---------- Появление блоков при прокрутке ----------
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach(function (el, i) {
+      // соседние карточки появляются с небольшой задержкой
+      var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.transitionDelay = Math.min(sib, 5) * 70 + 'ms';
+      io.observe(el);
+    });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // ---------- Прогресс прокрутки, линия шагов, липкая кнопка ----------
+  var bar = document.querySelector('.scroll-progress');
+  var steps = $('#steps');
+  var sticky = $('.sticky-cta');
+  var hero = $('.hero');
+  var lead = $('#lead');
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    if (bar) bar.style.setProperty('--p', max > 0 ? (h.scrollTop / max).toFixed(4) : 0);
+    if (steps) {
+      var r = steps.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var f = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.3)));
+      steps.style.setProperty('--fill', f.toFixed(3));
+    }
+    if (sticky && hero && lead) {
+      var pastHero = hero.getBoundingClientRect().bottom < 0;
+      var lr = lead.getBoundingClientRect();
+      var atForm = lr.top < window.innerHeight && lr.bottom > 0;
+      sticky.classList.toggle('show', pastHero && !atForm);
+    }
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // ---------- Подсветка карточек за курсором ----------
+  document.querySelectorAll('.tile').forEach(function (t) {
+    t.addEventListener('pointermove', function (e) {
+      var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // ---------- Виджет сроков доставки ----------
+  var ROUTES = {
+    'vilnius': { route: 'LT · Вильнюс → RU · Москва', days: '14–21', unit: 'день', from: 14, to: 21, note: 'Склад для грузов из Германии, Польши и других стран ЕС' },
+    'rimini':  { route: 'IT · Римини → RU · Москва', days: '18–25', unit: 'дней', from: 18, to: 25, note: 'Мебель Пезаро, плитка Сассуоло, обувь Марке — забираем с фабрик сами' },
+    'gz-auto': { route: 'CN · Гуанчжоу → RU · Москва · авто', days: '25–30', unit: 'дней', from: 25, to: 30, note: 'Автодоставка из Китая' },
+    'gz-rail': { route: 'CN · Гуанчжоу → RU · Москва · ЖД', days: '35–45', unit: 'дней', from: 35, to: 45, note: 'Железнодорожная доставка из Китая' },
+    'gz-air':  { route: 'CN · Гуанчжоу → RU · Москва · авиа', days: 'Авиа', unit: 'по запросу', from: 0, to: 0, note: 'Организуем авиадоставку — срок назовёт менеджер при расчёте' }
+  };
+  var MAX_DAYS = 45;
+  var tabs = document.querySelectorAll('.eta-tabs [role=tab]');
+  function showRoute(key) {
+    var r = ROUTES[key];
+    if (!r) return;
+    tabs.forEach(function (b) {
+      var on = b.getAttribute('data-route') === key;
+      b.setAttribute('aria-selected', String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    $('#eta-route').textContent = r.route;
+    $('#eta-days').textContent = r.days;
+    $('#eta-unit').textContent = r.unit;
+    $('#eta-note').textContent = r.note;
+    var fill = $('#eta-bar');
+    if (r.to) { fill.style.left = (r.from / MAX_DAYS * 100) + '%'; fill.style.width = ((r.to - r.from) / MAX_DAYS * 100) + '%'; }
+    else { fill.style.left = '0%'; fill.style.width = '8%'; }
+  }
+  tabs.forEach(function (b, i) {
+    b.addEventListener('click', function () { showRoute(b.getAttribute('data-route')); });
+    b.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var n = tabs[(i + d + tabs.length) % tabs.length];
+      n.focus();
+      showRoute(n.getAttribute('data-route'));
+    });
+  });
+  if (tabs.length) showRoute('vilnius');
 
   // ---------- Cookie и аналитика (загружается только после согласия) ----------
   var COOKIE_KEY = 'cookie_consent_v1';
