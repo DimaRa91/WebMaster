@@ -35,6 +35,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="D12-Newspaper" component={Newspaper} durationInFrames={D12.total} fps={FPS} width={W} height={H} />
     <Composition id="D13-Paper" component={PaperExplainer} durationInFrames={D13.total} fps={FPS} width={W} height={H} />
     <Composition id="D14-Real" component={RealDoc} durationInFrames={D14.total} fps={FPS} width={W} height={H} />
-    <Still id="Banner-Vs" component={VsBanner} width={1080} height={1350} />
+    {['Vs', 'China', 'Warehouses', 'Groupage'].map((id) => (
+      <Still key={id} id={`Banner-${id}`} component={VsBanner} width={1080} height={1350} defaultProps={{id}} />
+    ))}
   </>
 );
