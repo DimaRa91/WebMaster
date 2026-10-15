@@ -126,6 +126,12 @@
       "sourceType": "github",
       "skillPath": "skills/talking-head-recut/SKILL.md",
       "computedHash": "83df91f488236abbc53d3c817f31b4554de8e772c2e8a17a15c0a72664da9eca"
+    },
+    "voice-studio": {
+      "source": "LFTPadilla/agent-dev-kit",
+      "sourceType": "github",
+      "skillPath": "plugins/dev-skills/skills/voice-studio/SKILL.md",
+      "computedHash": "f97656e7323d09510232e1c46622614a8036dbd9b6731e10bdb4f602e736d4a0"
     }
   }
 }
